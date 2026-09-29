@@ -5,7 +5,7 @@
   "scripts": {
     "build": "python build.py",
     "test": "playwright test",
-    "validate:html": "html-validate '*.html'"
+    "validate:html": "html-validate *.html"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",

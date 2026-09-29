@@ -25,11 +25,11 @@ def header(current):
 <div class="announcement">14-day AI Front Desk pilot · $750 · One focused inbound workflow</div>
 <header class="site-header">
   <div class="container nav-wrap">
-    <a class="brand" href="index.html" aria-label="RouteCraft Systems home">
+    <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true"></span>
       <span class="brand-copy">RouteCraft<small>Systems</small></span>
     </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Open navigation">Menu</button>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
     <nav class="nav-links" id="site-navigation" aria-label="Primary navigation">
       {links}
       <a class="btn btn-primary btn-small" href="contact.html" data-event="nav_pilot_click">Check pilot fit</a>
@@ -82,6 +82,10 @@ def page(name, title, description, current, body, noindex=False):
   <meta property="og:type" content="website"><meta property="og:site_name" content="RouteCraft Systems">
   <meta property="og:title" content="{escape(title, quote=True)}"><meta property="og:description" content="{escape(description, quote=True)}"><meta property="og:url" content="{canonical}">
   <meta name="twitter:card" content="summary"><meta name="theme-color" content="#111712">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   {schema}
   <script>window.sa_event=window.sa_event||function(){{var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]}};</script>
