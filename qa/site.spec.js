@@ -22,6 +22,9 @@ for (const path of pages) {
     const response = await page.goto(origin + path, { waitUntil: 'networkidle' });
     expect(response?.status()).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
+    const schema = await page.locator('script[type="application/ld+json"]').textContent();
+    expect(() => JSON.parse(schema)).not.toThrow();
+    expect(JSON.parse(schema)['@context']).toBe('https://schema.org');
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
     expect(overflow).toBe(false);
     const results = await new AxeBuilder({ page }).analyze();
@@ -44,6 +47,15 @@ test('mobile navigation is keyboard operable', async ({ browser }) => {
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await expect(toggle).toBeFocused();
   await context.close();
+});
+
+test('primary CTA emits a Simple Analytics conversion event', async ({ page }) => {
+  await page.goto(origin + '/', { waitUntil: 'networkidle' });
+  await page.locator('[data-event="hero_pilot_click"]').evaluate(element => element.addEventListener('click', event => event.preventDefault(), { once: true }));
+  const eventRequest = page.waitForRequest(request => request.url().includes('queue.simpleanalyticscdn.com/simple.gif') && request.url().includes('type=event') && request.url().includes('event=hero_pilot_click'));
+  await page.locator('[data-event="hero_pilot_click"]').click();
+  const request = await eventRequest;
+  expect(request.method()).toBe('GET');
 });
 
 test('qualified inquiry form has production endpoint and labeled controls', async ({ page }) => {
